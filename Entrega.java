@@ -72,33 +72,33 @@ class Entrega {
      */
     static int exercici1(int n) {
 
-      int casos=(int)Math.pow(2,n);
-      int [] secuencia=new int[n];
-      int numCiertas=0;
-      boolean valorActual=true;
-
-      for(int i=0; i<n; i++){
-          valorActual=true;
+        int casos=(int)Math.pow(2,n);
+        int [] secuencia=new int[n];
+        int numCiertas=0;
+        boolean valorActual=true;
         
-          for(int j=n-1; j<=0; j--){
-              secuencia[j]= (i&1)==1 ? 1:0;
-              i>>=1;
-          }
+        for(int i=0; i<casos; i++){
+            
+            valorActual=true;
+            int i0=i;
+            
+            for(int j=n-1; j>=0; j--){
+                secuencia[j]= (i0&1)==1 ? 1:0;
+                i0>>=1;
+            }
 
-          for(int j=0, j<n; j++){
+            for(int j=0; j<n; j++){
 
-              if((!valorActual)||((secuencia[j]==1)&&(valorActual))){
-                  valorActual=true;
-              }else{
-                  valorActual=false;
-              }  
-                
-          }
+                if((!valorActual)||((secuencia[j]==1)&&(valorActual))){
+                    valorActual=true;
+                }else{
+                    valorActual=false;
+                }  
+            }
 
-
-          if(valorActual){
-              numCiertas++;
-          }
+            if(valorActual){
+                numCiertas++;
+            }
       }
       
       return numCiertas; // TODO
