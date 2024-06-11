@@ -40,8 +40,8 @@ import java.util.stream.Stream;
  *
  * Podeu fer aquesta entrega en grups de com a màxim 3 persones, i necessitareu com a minim Java 10.
  * Per entregar, posau a continuació els vostres noms i entregau únicament aquest fitxer.
- * - Nom 1:
- * - Nom 2:
+ * - Nom 1: Ibrahim Zougaghi Sabir
+ * - Nom 2: Joan Roldán Delgado
  * - Nom 3:
  *
  * L'entrega es farà a través d'una tasca a l'Aula Digital que obrirem abans de la data que se us
@@ -71,7 +71,37 @@ class Entrega {
      * Vegeu el mètode Tema1.tests() per exemples.
      */
     static int exercici1(int n) {
-      return 0; // TODO
+
+      int casos=(int)Math.pow(2,n);
+      int [] secuencia=new int[n];
+      int numCiertas=0;
+      boolean valorActual=true;
+
+      for(int i=0; i<n; i++){
+          valorActual=true;
+        
+          for(int j=n-1; j<=0; j--){
+              secuencia[j]= (i&1)==1 ? 1:0;
+              i>>=1;
+          }
+
+          for(int j=0, j<n; j++){
+
+              if((!valorActual)||((secuencia[j]==1)&&(valorActual))){
+                  valorActual=true;
+              }else{
+                  valorActual=false;
+              }  
+                
+          }
+
+
+          if(valorActual){
+              numCiertas++;
+          }
+      }
+      
+      return numCiertas; // TODO
     }
 
     /*
