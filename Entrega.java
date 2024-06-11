@@ -178,6 +178,37 @@ class Entrega {
      * És cert que ∃x : ∃!y : ∀z : P(x,z) <-> Q(y,z) ?
      */
     static boolean exercici4(int[] universe, BiPredicate<Integer, Integer> p, BiPredicate<Integer, Integer> q) {
+      
+      for(int x:universe){
+          int cantY=0;
+        
+          for(int y:universe){
+              boolean todaZ=true;
+            
+              for(int z:universe){
+
+                  if(p.test(x,z)!=q.test(y,z)){
+                      todaZ=false;
+                      break;
+                  }
+              }
+
+              if(todaZ){
+                  cantY++;
+                  if(cantY>1){
+                      break;
+                  }
+              }
+            
+          }
+
+          if(cantY==1){
+              return true;
+          }
+
+          
+      }
+      
       return false; // TODO
     }
 
@@ -189,7 +220,7 @@ class Entrega {
 
       // p1 -> p2 és cert exactament a 3 files
       // p1 p2
-      // 0  0  <-
+      // 0  0  <-  
       // 0  1  <-
       // 1  0
       // 1  1  <-
