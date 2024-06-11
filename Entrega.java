@@ -130,7 +130,7 @@ class Entrega {
                 }  
             }
 
-            if(!existe){
+            if(!existeY){
                 return false;
             }  
 
@@ -145,7 +145,33 @@ class Entrega {
      * És cert que ∃x : ∀y : Q(x, y) -> P(x) ?
      */
     static boolean exercici3(int[] universe, Predicate<Integer> p, BiPredicate<Integer, Integer> q) {
-      return false; // TODO
+
+      boolean xValida=true;
+      
+      for(int x:universe){
+          xValida=true;
+          
+          for(int y:universe){
+
+              if(!q.test(x,y)){
+                  xValida=false;
+                  break;
+              }  
+          }
+
+          if(xValida){
+
+            if(p.test(x)){
+              return true;
+            }else{
+              return false;
+            }
+            
+          } 
+      }
+      
+      
+      return true; // TODO
     }
 
     /*
