@@ -320,7 +320,72 @@ class Entrega {
      * Podeu soposar que `a`, `b` i `c` estan ordenats de menor a major.
      */
     static int exercici1(int[] a, int[] b, int[] c) {
-      return -1; // TODO
+
+      int dA=a.length;
+      int dB=b.length;
+      int dC=c.length;
+      int dAuB=0;
+      int dA_C=0;
+      int dCartesia=0;
+      
+      int[] aUb=new int[dA+dB];
+      int[] a_c=new int[dA];
+
+      
+      
+      //a u b
+      int iA=0;
+      int iB=0;
+      int iAuB=0;
+      
+      for(;(iA<dA)&&(iB<dB);){
+          
+          if(a[iA]<b[iB]){
+              aUb[iAuB++]=a[iA];
+              if(iA<dA){iA++;}
+              dAuB++;
+              
+          }else if(a[iA]>b[iB]){
+              aUb[iAuB++]=b[iB];
+              if(iB<dB){iB++;}
+              dAuB++;
+              
+          }else{
+              aUb[iAuB++]=a[iA];
+              if(iA<dA-1){iA++;}
+              if(iB<dB-1){iB++;}
+              dAuB++;
+              
+          }
+          
+      }
+
+
+      // a \ c
+      iA=0;
+      int iC=0;
+      int iA_C=0;
+      boolean aEncontrado=false;
+      for(;iA<dA;iA++){
+          iC=0;
+          aEncontrado=false;
+          for(;(iC<dC)&&(!aEncontrado);iC++){
+              if(a[iA]==c[iC]){
+                  aEncontrado=true;
+              }
+          }
+
+          if(!aEncontrado){
+              a_c[iA_C++]=a[iA];
+              dA_C++;
+          }
+      }
+      
+      dCartesia=dAuB*dA_C;
+
+      
+      
+      return dCartesia; // TODO // TODO
     }
 
     /*
@@ -332,6 +397,9 @@ class Entrega {
      * Podeu soposar que `a` i `rel` estan ordenats de menor a major (`rel` lexicogràficament).
      */
     static int exercici2(int[] a, int[][] rel) {
+      
+      
+      
       return -1; // TODO
     }
 
