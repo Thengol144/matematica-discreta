@@ -76,7 +76,8 @@ class Entrega {
         int [] secuencia=new int[n];
         int numCiertas=0;
         boolean valorActual=true;
-        
+
+
         for(int i=0; i<casos; i++){
             
             valorActual=true;
@@ -84,7 +85,7 @@ class Entrega {
             
             for(int j=n-1; j>=0; j--){
                 secuencia[j]= (i0&1)==1 ? 1:0;
-                i0>>=1;
+                i0>>=1; 
             }
 
             for(int j=0; j<n; j++){
@@ -96,12 +97,13 @@ class Entrega {
                 }  
             }
 
+
             if(valorActual){
                 numCiertas++;
             }
-      }
+        }
       
-      return numCiertas; // TODO
+        return numCiertas;
     }
 
     /*
@@ -109,36 +111,36 @@ class Entrega {
      */
     static boolean exercici2(int[] universe, Predicate<Integer> p, BiPredicate<Integer, Integer> q) {
 
-      boolean existeY=false;
+        boolean existeY=false;
 
-      for(int x:universe){
+        for(int x:universe){
 
-        existeY=false;
+            existeY=false;
         
-        if(p.test(x)){
+            if(p.test(x)){
 
-            for(int y:universe){
+                for(int y:universe){
                 
-                if(q.test(x,y)){
+                    if(q.test(x,y)){
                     
-                    if(!existeY){
-                        existeY=true;
-                    }else{
-                        return false;
+                        if(!existeY){
+                            existeY=true;
+                        }else{
+                            return false;
+                        }  
+                    
                     }  
-                    
+                }
+
+                if(!existeY){
+                    return false;
                 }  
-            }
 
-            if(!existeY){
-                return false;
             }  
-
         }  
-      }  
       
       
-      return true; // TODO
+        return true; // TODO
     }
 
     /*
@@ -146,32 +148,31 @@ class Entrega {
      */
     static boolean exercici3(int[] universe, Predicate<Integer> p, BiPredicate<Integer, Integer> q) {
 
-      boolean xValida=true;
+        boolean xValida=true;
       
-      for(int x:universe){
-          xValida=true;
+        for(int x:universe){
+            xValida=true;
           
-          for(int y:universe){
+            for(int y:universe){
 
-              if(!q.test(x,y)){
-                  xValida=false;
-                  break;
-              }  
-          }
-
-          if(xValida){
-
-            if(p.test(x)){
-              return true;
-            }else{
-              return false;
+                if(!q.test(x,y)){
+                    xValida=false;
+                    break;
+                }  
             }
-            
-          } 
-      }
+
+            if(xValida){
+
+                if(p.test(x)){
+                    return true;
+                }else{
+                    return false;
+                }
+            } 
+        }
       
       
-      return true; // TODO
+        return true; // TODO
     }
 
     /*
@@ -179,37 +180,35 @@ class Entrega {
      */
     static boolean exercici4(int[] universe, BiPredicate<Integer, Integer> p, BiPredicate<Integer, Integer> q) {
       
-      for(int x:universe){
-          int cantY=0;
+        for(int x:universe){
+            int cantY=0;
         
-          for(int y:universe){
-              boolean todaZ=true;
+            for(int y:universe){
+                boolean todaZ=true;
             
-              for(int z:universe){
+                for(int z:universe){
 
-                  if(p.test(x,z)!=q.test(y,z)){
-                      todaZ=false;
-                      break;
-                  }
-              }
+                    if(p.test(x,z)!=q.test(y,z)){
+                        todaZ=false;
+                        break;
+                    }
+                }
 
-              if(todaZ){
-                  cantY++;
-                  if(cantY>1){
-                      break;
-                  }
-              }
-            
-          }
+                if(todaZ){
+                    cantY++;
+                    
+                    if(cantY>1){
+                        break;
+                    }
+                }
+            }
 
-          if(cantY==1){
-              return true;
-          }
-
-          
-      }
+            if(cantY==1){
+                return true;
+            } 
+        }
       
-      return false; // TODO
+        return false; // TODO
     }
 
     /*
@@ -321,71 +320,69 @@ class Entrega {
      */
     static int exercici1(int[] a, int[] b, int[] c) {
 
-      int dA=a.length;
-      int dB=b.length;
-      int dC=c.length;
-      int dAuB=0;
-      int dA_C=0;
-      int dCartesia=0;
-      
-      int[] aUb=new int[dA+dB];
-      int[] a_c=new int[dA];
-
-      
-      
-      //a u b
-      int iA=0;
-      int iB=0;
-      int iAuB=0;
-      
-      for(;(iA<dA)&&(iB<dB);){
-          
-          if(a[iA]<b[iB]){
-              aUb[iAuB++]=a[iA];
-              if(iA<dA){iA++;}
-              dAuB++;
-              
-          }else if(a[iA]>b[iB]){
-              aUb[iAuB++]=b[iB];
-              if(iB<dB){iB++;}
-              dAuB++;
-              
-          }else{
-              aUb[iAuB++]=a[iA];
-              if(iA<dA-1){iA++;}
-              if(iB<dB-1){iB++;}
-              dAuB++;
-              
-          }
-          
-      }
-
-
-      // a \ c
-      iA=0;
-      int iC=0;
-      int iA_C=0;
-      boolean aEncontrado=false;
-      for(;iA<dA;iA++){
-          iC=0;
-          aEncontrado=false;
-          for(;(iC<dC)&&(!aEncontrado);iC++){
-              if(a[iA]==c[iC]){
-                  aEncontrado=true;
-              }
-          }
-
-          if(!aEncontrado){
-              a_c[iA_C++]=a[iA];
-              dA_C++;
-          }
-      }
-      
-      dCartesia=dAuB*dA_C;
-
-      
-      
-      return dCartesia; // TODO // TODO
+        int m=a.length;
+        int n=b.length;
+        int p=c.length;
+        
+        //Cálculo A\C
+        int [] a_c=new int[m];
+        int j=0;
+        for(int i=0;i<m;i++){
+            
+            while(j<p&&c[j]<a[i]){
+                j++;
+            }
+            
+            if(j==p || c[j]>a[i]){
+                a_c[i]=a[i];
+            }
+        }
+        
+        
+        //Calculamos A U B
+        int [] aUb=new int[m+n];
+        int r=0, s=0, t=0;
+        while(r<m && s<n){
+            
+            if(a[r] < b[s]){
+                aUb[t++]=a[r++];
+            }else if(a[r] > b[s]){
+                aUb[t++]=b[s++];
+            }else{
+                aUb[t++]=a[r++];
+                s++;
+            }
+        }
+        
+        while(r<m){
+            aUb[t++]=a[r++];
+        }
+        
+        while(s<n){
+            aUb[t++]=b[s++];
+        }
+        
+        
+        //Calculamos conjunto de partes
+        int contador=0;
+        for(int i=0; i<(1<<(m+n)); i++){
+            boolean valido=true;
+            
+            for(int x:a_c){
+                
+                if((i&(1<<x)) == 0){
+                    valido=false;
+                    break;
+                }
+            }
+            
+            if(valido){
+                contador++;
+            }
+        }
+        
+        
+        return contador; // TODO
     }
 
     /*
@@ -397,10 +394,57 @@ class Entrega {
      * Podeu soposar que `a` i `rel` estan ordenats de menor a major (`rel` lexicogràficament).
      */
     static int exercici2(int[] a, int[][] rel) {
+
+        boolean[][] clausura=new boolean[a.length][a.length];
+      
+        for(int[]par : rel){
+          
+            int i=indexDe(a, par[0]);
+            int j=indexDe(a, par[1]);
+            clausura[i][j]=true;
+        }
+      
+        //Aplicamos clausura reflexiva
+        for(int i=0; i<a.length; i++){
+            clausura[i][i]=true;
+        }
+      
+        //Aplicamos clausura simétrica
+        for(int i=0; i<a.length; i++){
+            for(int j=0; j<a.length; j++){
+              
+                if(clausura[i][j]){
+                    clausura[j][i]=true;
+                }
+            }
+        }
+      
+        //Aplicamos clausura transitiva
+        for(int k=0; k<a.length; k++){
+            for(int i=0; i<a.length; i++){
+                for(int j=0; j<a.length; j++){
+                  
+                    if(clausura[i][k]&&clausura[k][j]){
+                        clausura[i][j]=true;
+                    }
+                }
+            }
+        }
       
       
+        //Contabilizamos los componentes de la clausura
+        int contador=0;
+        for(int i=0; i<a.length; i++){
+            for(int j=0; j<a.length; j++){
+              
+                if(clausura[i][j]){
+                    contador++;
+                }
+            }
+        }
+        
       
-      return -1; // TODO
+        return contador; // TODO   
     }
 
     /*
@@ -410,9 +454,112 @@ class Entrega {
      * Podeu soposar que `a` i `rel` estan ordenats de menor a major (`rel` lexicogràficament).
      */
     static int exercici3(int[] a, int[][] rel) {
-      return -1; // TODO
+
+        if(!esOrdenTotal(a, rel)){
+            return -2;
+        }else{
+            int numAristas=construccionHasse(a, rel);
+            return numAristas;
+        }
     }
 
+    static boolean esOrdenTotal(int []a, int[][] rel){
+        
+        int n = a.length;
+        boolean[][] matrizAdy=new boolean[n][n];
+        
+        for (int[] par:rel) {
+            
+            int x=par[0];
+            int y=par[1];
+            matrizAdy[x][y]=true;
+        }
+
+        //Verificamos si es reflexiva
+        for (int i=0; i<n; i++) {
+            
+            if (!matrizAdy[a[i]][a[i]]) {
+                return false;
+            }
+        }
+
+        //Verificamos si es antisimétrica y transitiva
+        for (int i=0; i<n; i++) {
+            for (int j=0; j<n; j++) {
+                
+                int x=a[i];
+                int y=a[j];
+                if (x==y) continue;
+
+                //Verificamos si es antisimétrica
+                if (matrizAdy[x][y] && matrizAdy[y][x] && x!=y) {
+                    return false;
+                }
+
+                //Verificamos si es transitiva
+                for (int k=0; k<n; k++) {
+                    int z=a[k];
+                    
+                    if (matrizAdy[x][y] && matrizAdy[y][z] && !matrizAdy[x][z]) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+
+    static int construccionHasse(int[] a, int[][] rel){
+        
+        int n=a.length;
+        boolean[][] matriz=new boolean[n][n];
+        
+        
+        for(int[] par:rel){
+            
+            int x=par[0];
+            int y=par[1];
+            matriz[x][y]=true;
+        }
+
+        
+        int numAristes=0;
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                if(i!=j && matriz[i][j]){
+                    boolean esMinima=true;
+                    
+                    for(int k=0; k<n; k++){
+                        
+                        if(k!=i && k!=j && matriz[i][k] && matriz[k][j]) {
+                            esMinima=false;
+                            break;
+                        }
+                    }
+                    
+                    if(esMinima){
+                        numAristes++;
+                    }
+                }
+            }
+        }
+
+        return numAristes;  
+    }
+
+
+    private static int indexDe(int[] a, int x) {
+      for (int i = 0; i < a.length; i++) {
+          if (a[i] == x) {
+              return i;
+          }
+      }
+      return -1;
+    }
+    
+    
 
     /*
      * Comprovau si les relacions `rel1` i `rel2` són els grafs de funcions amb domini i codomini
@@ -422,17 +569,158 @@ class Entrega {
      * lexicogràficament).
      */
     static int[][] exercici4(int[] a, int[][] rel1, int[][] rel2) {
-      return new int[][] {}; // TODO
+        
+        int n=a.length;
+        boolean[][] matriz1=new boolean[n][n];
+        boolean[][] matriz2=new boolean[n][n];
+
+        //Construimos las matrices de las relaciones
+        for (int[] par:rel1) {
+            int i=indexDe(a, par[0]);
+            int j=indexDe(a, par[1]);
+            matriz1[i][j]=true;
+        }
+
+        for (int[] par:rel2) {
+            int i=indexDe(a, par[0]);
+            int j=indexDe(a, par[1]);
+            matriz2[i][j]=true;
+        }
+
+        //Verificamos si son grafos de funciones
+        if (!esGrafoDeFuncion(matriz1) || !esGrafoDeFuncion(matriz2)) {
+            return null;
+        }
+
+        //Calculamos la composición de las relaciones
+        boolean[][] comp=new boolean[n][n];
+        for (int i=0; i<n; i++){
+            for (int j=0; j<n; j++){
+                for (int k=0; k<n; k++){
+                    
+                    if (matriz1[i][k] && matriz2[k][j]) {
+                        comp[i][j]=true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        //Convertimos la matriz de la composición en un array de pares
+        List<int[]> compList=new ArrayList<>();
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                if(comp[i][j]){
+                    compList.add(new int[]{a[i], a[j]});
+                }
+            }
+        }
+
+        return compList.toArray(new int[0][0]);
     }
 
+
+    private static boolean esGrafoDeFuncion(boolean[][] matriz){
+        
+        for (int i=0; i<matriz.length; i++) {
+            int count=0;
+            
+            for (int j=0; j<matriz.length; j++) {
+                
+                if (matriz[i][j]) {
+                    count++;
+                }
+            }
+            
+            if (count!=1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    
     /*
      * Comprovau si la funció `f` amb domini `dom` i codomini `codom` té inversa. Si la té, retornau
      * el seu graf (el de l'inversa). Sino, retornau null.
      */
     static int[][] exercici5(int[] dom, int[] codom, Function<Integer, Integer> f) {
-      return new int[][] {}; // TODO
+        
+        if (esBiyectiva(dom, codom, f)) {
+            int[][] graficoInversa = new int[codom.length][2];
+            
+            for (int i=0; i<codom.length; i++) {
+                
+                int y=codom[i];
+                int x=encontrarPreimagen(y, dom, f);
+                graficoInversa[i][0]=y;
+                graficoInversa[i][1]=x;
+            }
+            
+            return graficoInversa;
+            
+        }else {
+            return null;
+        }
     }
 
+
+    static boolean esBiyectiva(int[] dom, int[] codom, Function<Integer, Integer> f){
+        
+        boolean[] codominioImagen = new boolean[codom.length];
+      
+        //Verificar que cada x solo tiene un y en el codominio
+        for (int x:dom){
+            
+            int y=f.apply(x);
+            int indiceX=encontrarIndice(codom, y);
+        
+            if (indiceX==-1 || codominioImagen[indiceX]){
+                return false; 
+            }
+        
+            codominioImagen[indiceX]=true;
+        }
+      
+        //Verificar que todos los elementos tengan una imagen
+        for (boolean imagen:codominioImagen) {
+        
+            if (!imagen) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    static int encontrarIndice(int[] arr, int elemento){
+      
+        for (int i=0; i<arr.length; i++) {
+        
+            if (arr[i]==elemento) {
+                return i;
+            }
+        }
+        
+        return -1;
+    }
+
+
+    static int encontrarPreimagen(int y, int[] dom, Function<Integer, Integer> f){
+      
+        for (int x:dom) {
+        
+            if (f.apply(x)==y) {
+            return x;
+            }
+        }
+      
+        return -1;
+    }
+
+    
+    
     /*
      * Aquí teniu alguns exemples i proves relacionades amb aquests exercicis (vegeu `main`)
      */
@@ -579,9 +867,35 @@ class Entrega {
      * Determinau si el graf és connex. Podeu suposar que `g` no és dirigit.
      */
     static boolean exercici1(int[][] g) {
-      return false; // TO DO
+        
+        int n=g.length;
+        boolean [] pasados= new boolean[n];
+        
+        dfs(0,pasados,g);
+        
+        for(boolean verticePasado:pasados){
+            
+            if(!verticePasado){
+                return false;
+            }
+        }
+        
+        return true; // TO DO
     }
 
+
+    static void dfs(int vertice, boolean [] pasado, int[][]grafo){
+        
+        pasado[vertice]=true;
+        
+        for(int adyacente:grafo[vertice]){
+            if(!pasado[adyacente]){
+                dfs(adyacente, pasado, grafo);
+            }
+        }
+    }
+
+    
     /*
      * Donat un tauler d'escacs d'amplada `w` i alçada `h`, determinau quin és el mínim nombre de
      * moviments necessaris per moure un cavall de la casella `i` a la casella `j`.
@@ -594,17 +908,110 @@ class Entrega {
      * Retornau el nombre mínim de moviments, o -1 si no és possible arribar-hi.
      */
     static int exercici2(int w, int h, int i, int j) {
-      return -1; // TO DO
+
+        int[][]posiciones={{-2, -1}, {-2, 1}, {-1, 2}, {1, 2}, {2, 1}, {2, -1}, {-1, -2}, {1, -2}};
+        
+        //Si la posicion inicial del caballo retornamos un 0
+        if(j==i) return 0;
+        
+        //Creamos una matriz recorrido
+        int[][]recorrido=new int[w][h];
+        //Inicializamos una array f para recorrer la longitud
+        //de la matriz recorrido
+        for(int[]f:recorrido){
+            //Llenamos el array f con -1
+            Arrays.fill(f,-1);
+        }
+        
+        //Inicializar las cordenadas iniciales y finales del
+        //eje X e Y
+        
+        int Xinicial=i%w;
+        int Yinicial=i/w;
+        int Xfinal=j%w;
+        int Yfinal=j/w;
+        
+        //Creamos una matriz booleana de la misma que de recorridos 
+        //y inicializamos las casillas
+        
+        boolean [][]pasadas=new boolean[w][h];
+        //inicializamos las matrices en la posicion inicial
+        recorrido[Xinicial][Yinicial]=0;
+        pasadas[Xinicial][Yinicial]=true;
+        
+        //Entramos en un bucle restringido por un booleano
+        //para procesar todas las celdas
+        boolean procesar=false;
+        while(!procesar){
+            procesar=true;
+            // Itera sobre cada columna
+                for (int p = 0; p < w; p++) {
+                    // Itera sobre cada fila
+                    for (int k = 0; k < h; k++) {
+                        // Comprueba si la celda ha sido procesada
+                        if (recorrido[p][k] != -1) {
+                            // Realiza el movimiento desde la celda actual
+                            for (int[] movimiento : posiciones) {
+                                int nuevoX = p + movimiento[0];
+                                int nuevoY = k + movimiento[1];
+                                // Comprueba que la nueva posición es válida y no ha sido visitada
+                                if (esValido(nuevoX, nuevoY, w, h) && !pasadas[nuevoX][nuevoY]) {
+                                    int nuevaDistancia = recorrido[p][k] + 1;
+                                    // Actualiza la distancia si es mejor que la existente
+                                    if (recorrido[nuevoX][nuevoY] == -1 || nuevaDistancia < recorrido[nuevoX][nuevoY]) {
+                                        recorrido[nuevoX][nuevoY] = nuevaDistancia;
+                                        pasadas[nuevoX][nuevoY] = true;
+                                        procesar = false; // Indica que hay que seguir iterando
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+        }
+        
+        
+        
+        return recorrido[Xfinal][Yfinal];
     }
 
+
+    static boolean esValido(int x, int y, int w, int h) {
+        return x >= 0 && x < w && y >= 0 && y < h;
+    }
+
+    
     /*
      * Donat un arbre arrelat (graf dirigit `g`, amb arrel `r`), decidiu si el vèrtex `u` apareix
      * abans (o igual) que el vèrtex `v` al recorregut en preordre de l'arbre.
      */
     static boolean exercici3(int[][] g, int r, int u, int v) {
-      return false; // TO DO
+
+        int [] preorden=new int[g.length];
+        int [] indice={0};
+        
+        Arrays.fill(preorden,-1);
+        
+        preOrden(r, g, indice, preorden);
+        
+        return preorden[v]>=preorden[u]; // TO DO
     }
 
+
+    private static void preOrden(int vertice, int[][] grafo, int[]indice, int[] preorden){
+        
+        preorden[vertice]= indice[0]++;
+        
+        for(int adyacente: grafo[vertice]){
+            
+            if(preorden[adyacente]==-1){
+                preOrden(adyacente, grafo, indice, preorden);
+            }
+        }
+    }
+
+    
     /*
      * Donat un recorregut en preordre (per exemple, el primer vèrtex que hi apareix és `preord[0]`)
      * i el grau de cada vèrtex (per exemple, el vèrtex `i` té grau `d[i]`), trobau l'altura de
@@ -613,8 +1020,79 @@ class Entrega {
      * L'altura d'un arbre arrelat és la major distància de l'arrel a les fulles.
      */
     static int exercici4(int[] preord, int[] d) {
-      return -1; // TO DO
+
+        //Para poder proceder creamos un objeto árbol
+        Arbol arbol=new Arbol();
+        
+        Vertice raiz=arbol.crearArbol(preord, d);
+        
+        return arbol.calcularAltura(raiz);
     }
+
+
+    static class Vertice{
+        int valor;
+        List<Vertice> hijos;
+        
+        public Vertice(int a){
+            
+            this.valor=a;
+            this.hijos=new ArrayList<>();
+        }
+        
+        public void agregarhijos(Vertice hijo){
+            hijos.add(hijo);
+        }
+        
+    }
+
+
+    static class Arbol{
+        //Retornamos un vertice
+        Vertice raiz;
+        
+        public Vertice crearArbol(int []preord, int[] d){
+            
+            int [] indice={0};
+            return construir(preord, d, indice);
+        }
+    
+        private Vertice construir(int[] preord, int[] d,int[] indice){
+        
+            if(indice[0]>=preord.length){
+                return null;
+            }
+        
+            Vertice vertice=new Vertice(preord[indice[0]]);
+        
+            int numhijos=d[vertice.valor];
+            indice[0]++;
+            for(int i=0;i<numhijos;i++){
+                vertice.agregarhijos(construir(preord,d,indice));
+            }
+            
+            return vertice;
+        }
+    
+        public int calcularAltura(Vertice vertice){
+            
+            if(vertice==null){
+                return -1;
+            }
+        
+            int maximaAltura=-1;
+            for( Vertice hijo:vertice.hijos){
+                int alturaActual=calcularAltura(hijo);
+                
+                if(maximaAltura<alturaActual){
+                    maximaAltura=alturaActual;
+                }
+            }
+            
+            return maximaAltura +1;
+        }
+    }
+    
 
     /*
      * Aquí teniu alguns exemples i proves relacionades amb aquests exercicis (vegeu `main`)
@@ -696,8 +1174,28 @@ class Entrega {
      * Calculau el mínim comú múltiple de `a` i `b`.
      */
     static int exercici1(int a, int b) {
-      return -1; // TO DO
+        
+        int producto=a*b;
+        
+        if(producto<0){
+            producto=-producto;
+        }
+        
+        return producto/mcd(a,b); // TO DO
     }
+
+
+    static int mcd(int a, int b){
+        
+        while(b!=0){
+            int auxiliar=b;
+            b=a%b;
+            a=auxiliar;
+        }
+        
+        return a;
+    }
+    
 
     /*
      * Trobau totes les solucions de l'equació
@@ -709,9 +1207,76 @@ class Entrega {
      * Podeu suposar que `n > 1`. Recordau que no no podeu utilitzar la força bruta.
      */
     static int[] exercici2(int a, int b, int n) {
-      return new int[] {}; // TO DO
+
+        // Calcula el MCD de dos números usando el algoritmo de Euclides
+        int mcd = euclides(a, n);
+
+        // Si b no es divisible por el MCD, no hay solución
+        if (b % mcd != 0) {
+            return new int[]{}; // Retorna un array vacío si no hay solución
+        }
+
+        // Simplifica los números dividiéndolos por el MCD
+        a = a / mcd;
+        b = b / mcd;
+        n = n / mcd;
+
+        // Calcula la solución utilizando el algoritmo extendido de Euclides
+        int[] resultado = extensionEuclides(a, n);
+        int x = resultado[0]; // Coeficiente x de la solución
+        int y = resultado[1]; // Coeficiente y de la solución
+
+        // Calcula la solución particular para la ecuación lineal
+        int mult = y * b; // Multiplicación de y por b
+        y = mult % n; // Reduce y módulo n
+        if (y < 0) {
+            y = y + n; // Ajusta y si es negativo sumándole n
+        }
+
+        // Genera las soluciones generales
+        int[] soluciones = new int[mcd];
+        for (int j = 0; j < mcd; j++) {
+            soluciones[j] = (y + j * n) % (n * mcd); // Calcula y almacena las soluciones en el array
+        }
+
+        return soluciones; // Retorna las soluciones encontradas
     }
 
+
+    public static int euclides(int num1, int num2){
+        
+        while(num2!=0){
+            int temp=num2;//Variable temporal para guardar num2
+            num2 =num1%num2; //Asigna a num2 el resto de la división de num1 entere num2
+            num1=temp;//Asigna a num1 el valor temp 
+        }
+        return num1;//Devuelve el num1
+    }
+
+
+    public static int[] extensionEuclides(int num1, int num2) {
+        
+        if (num2 == 0) {
+            return new int[]{num1, 1, 0}; // Caso base: si num2 es 0, devuelve [num1, 1, 0]
+        }
+
+        // Llamada recursiva con los valores (num2, num1 % num2)
+        int[] results = extensionEuclides(num2, num1 % num2);
+
+        // Valores devueltos de la recursión
+        int gcd = results[0]; // El MCD
+        int coeffX = results[1]; // Coeficiente x de la solución anterior
+        int coeffY = results[2]; // Coeficiente y de la solución anterior
+
+        // Actualización de los coeficientes x e y
+        int newCoeffX = coeffY; // Nuevo coeficiente x
+        int newCoeffY = coeffX - (num1 / num2) * coeffY; // Nuevo coeficiente y
+
+        // Devuelve el MCD y los coeficientes actualizados
+        return new int[]{gcd, newCoeffX, newCoeffY};
+    }
+    
+    
     /*
      * Donats `a != 0`, `b != 0`, `c`, `d`, `m > 1`, `n > 1`, determinau si el sistema
      *
@@ -721,7 +1286,19 @@ class Entrega {
      * té solució.
      */
     static boolean exercici3(int a, int b, int c, int d, int m, int n) {
-      return false; // TO DO
+
+        if( (c%mcd(a,m)!=0) || (d%mcd(b,n)!=0) ){
+            return false;
+        }
+        
+        int[]primeraSolucion=extensionEuclides(a,m);
+        int[]segundaSolucion=extensionEuclides(b,n);
+        
+        int primeraX=(c/mcd(a,m))*primeraSolucion[1];
+        int segundaX=(d/mcd(b,n))*segundaSolucion[1];
+        
+
+        return ((primeraX%mcd(a,m))==(segundaX%mcd(b,n)%mcd(m,n)));
     }
 
     /*
@@ -735,7 +1312,32 @@ class Entrega {
      * qüestió de segons independentment de l'entrada.
      */
     static int exercici4(int n, int k, int p) {
-      return -1; // TO DO
+
+        if(p==1){
+            return 0;
+        }
+        
+        
+        if(n<0){
+            n=(n%p+p)%p;
+        }
+        
+        
+        int resultado=1;
+        n=n%p;
+        
+        while(k>0){
+            
+            if(k%2==1){
+                resultado=(resultado*n)%p;
+            }
+            
+            k=k>>1;
+            n=(n*n)%p;
+        }
+        
+        // Como resultado puede ser grande, lo devolvemos como entero módulo p
+        return (int) resultado;
     }
 
     /*
