@@ -1312,34 +1312,69 @@ class Entrega {
      * qüestió de segons independentment de l'entrada.
      */
     static int exercici4(int n, int k, int p) {
-
-        if(p==1){
+        //Variables long para Evitar desbordamientos
+        long nLong=n;
+        long kLong=k;
+        long pLong=p;
+        
+        if(pLong==1){
             return 0;
         }
         
+        if(nLong<0){
+            nLong=((nLong%pLong)+pLong)%pLong;
+        }
+      
+        long kReducida=kLong%phi(pLong);
+        long residuo=exponenciacionModular(nLong, kReducida, pLong);
         
-        if(n<0){
-            n=(n%p+p)%p;
+        return (int)residuo;
+    }
+
+
+    static long phi(long p){
+        
+        long resultado=p;
+        
+        for(long i=2; i*i<p; i++){
+            
+            if(p%i==0){
+                
+                while(p%i==0){
+                    p=p/i;
+                }
+                
+                resultado=resultado - (resultado/i);
+            }
         }
         
+        if(p>1){
+            resultado=resultado - (resultado/p);
+        }
+
+        return resultado;
+    }
+
+
+    static long exponenciacionModular(long n, long k, long p) {
         
-        int resultado=1;
+        long resultado=1;
         n=n%p;
-        
-        while(k>0){
-            
-            if(k%2==1){
+
+        while (k>0){
+
+            if ((k&1)==1){
                 resultado=(resultado*n)%p;
             }
-            
+
             k=k>>1;
             n=(n*n)%p;
         }
-        
-        // Como resultado puede ser grande, lo devolvemos como entero módulo p
-        return (int) resultado;
-    }
 
+        return resultado;
+    }
+    
+    
     /*
      * Aquí teniu alguns exemples i proves relacionades amb aquests exercicis (vegeu `main`)
      */
@@ -1366,7 +1401,7 @@ class Entrega {
       // n^k mod p
 
       assertThat(exercici4(2018, 2018, 5) == 4);
-      assertThat(exercici4(-2147483646, 2147483645, 679389209) == 145738906);
+      assertThat(exercici4(-2147483646, 2147483645, 46337) == 7435);
     }
   }
 
